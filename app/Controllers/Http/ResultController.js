@@ -20,7 +20,7 @@ class ResultController {
             {
                 $lookup :{ from: 'sensors', localField: 'sensor', foreignField: '_id', as: 'sensor'}
             }, {
-                $unwind: '$sensor' 
+                $unwind: '$sensor'
             }, {
                 $match: { 'sensor.user_id': user.id }
             }
@@ -34,13 +34,13 @@ class ResultController {
             {
                 $lookup :{ from: 'sensors', localField: 'sensor', foreignField: '_id', as: 'sensor'}
             }, {
-                $unwind: '$sensor' 
+                $unwind: '$sensor'
             }, {
                 $match: { 'sensor.user_id': user_id, 'sensor.name':'Temp&Hum' }
             }
         ]).sort({data: order}).limit(1);
         console.log(temperature);
-        
+
         return (temperature)
     }
 
@@ -52,7 +52,7 @@ class ResultController {
             {
                 $lookup :{ from: 'sensors', localField: 'sensor', foreignField: '_id', as: 'sensor'}
             }, {
-                $unwind: '$sensor' 
+                $unwind: '$sensor'
             }, {
                 $match: { 'sensor.user_id': user.id, 'sensor.name':'Temp&Hum' }
             }
@@ -68,7 +68,7 @@ class ResultController {
             {
                 $lookup :{ from: 'sensors', localField: 'sensor', foreignField: '_id', as: 'sensor'}
             }, {
-                $unwind: '$sensor' 
+                $unwind: '$sensor'
             }, {
                 $match: { 'sensor.user_id': user.id, 'sensor.name':'Temp&Hum' }
             }
@@ -84,7 +84,7 @@ class ResultController {
             {
                 $lookup :{ from:'sensors', localField:'sensor', foreignField:'_id', as:'sensor'}
             }, {
-                $unwind: '$sensor' 
+                $unwind: '$sensor'
             }, {
                 $match: { 'sensor.user_id':user.id, 'sensor.name':'Movimiento', 'data':true }
             }, {
@@ -93,6 +93,23 @@ class ResultController {
         ]);
         return response.status(200).json(counter)
     }
+
+    async deleteByUser({response, auth}) {
+      const user = await auth.getUser()
+      const sensor1 = await Sensor.findOne({user_id:user.id, name:'Temp&Hum'})
+      console.log(sensor1._id);
+      await Result.deleteMany({sensor:sensor1._id})
+      const sensor2 = await Sensor.findOne({user_id:user.id, name:'Movimiento'})
+      console.log(sensor2._id);
+      await Result.deleteMany({sensor:sensor2._id})
+      const sensor3 = await Sensor.findOne({user_id:user.id, name:'Distancia'})
+      console.log(sensor3._id);
+      await Result.deleteMany({sensor:sensor3._id})
+      const sensor4 = await Sensor.findOne({user_id:user.id, name:'LED'})
+      console.log(sensor4._id);
+      await Result.deleteMany({sensor:sensor4._id})
+      return response.status(200).json({message:'Hisrotial Vaciado'})
+  }
 }
 
 module.exports = ResultController

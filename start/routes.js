@@ -45,4 +45,5 @@ Route.group(() => {
   Route.get('/api/result/tempMax', 'ResultController.tempMax')
   Route.get('/api/result/tempMin', 'ResultController.tempMin')
   Route.get('/api/result/presenceCounter', 'ResultController.presenceCounter')
+  Route.delete('/api/result', 'ResultController.deleteByUser')
 }).middleware(['auth'])
