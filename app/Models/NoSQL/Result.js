@@ -30,6 +30,9 @@ module.exports = mongoose.model('Result', resultSchema)
 const mongoose = use('Mongoose')
 const ObjectId = mongoose.Schema.Types.ObjectId
 const Mixed = mongoose.Schema.Types.Mixed
+
+
+
 const Sensor = use('App/Models/NoSQL/Sensor');
 
 let ResultadoSchema = mongoose.Schema({
@@ -39,5 +42,7 @@ let ResultadoSchema = mongoose.Schema({
 }, {
   timestamps: true
 })
+
+
 
 module.exports = mongoose.model('Resultado', ResultadoSchema)

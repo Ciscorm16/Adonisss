@@ -31,6 +31,8 @@ Route.group(() => {
 
  //SENSORS
  Route.group(() => {
+  Route.post('/api/sensor/registro', 'SensorController.regMonitor')
+
   Route.post('/api/sensor', 'SensorController.store')
   Route.get('/api/sensor', 'SensorController.showMySensors')
   Route.delete('/api/sensor', 'SensorController.deleteByUser')

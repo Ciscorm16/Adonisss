@@ -11,21 +11,22 @@ class UltrasonicoController {
   }
 
   async onMessage(data){
-    const datoo = await data;
-    if (data != datoo){
-    this.socket.broadcast("message",datoo);
+    var datito;
+    this.socket.broadcast("message",data);
     console.log(this.socket.id);
-    console.log(datoo);
+    console.log(data);
     const user = await this.auth.getUser();
     const sensore = await Sensor.findOne({name:"Distancia"},{user_id:this.auth.user.id});
     const idsensor = sensore._id
     const Obj = {
       "sensor_id":idsensor,
       "usuario_id":this.auth.user.id,
-      "Data":datoo
+      "Data":data
     }
+    if(data != datito){
     const dato = new Resultado(Obj);
     dato.save();
+    datito = data;
     }
   }
 

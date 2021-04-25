@@ -1,7 +1,5 @@
 'use strict'
 
-const ResultController = require("../app/Controllers/Ws/ResultController")
-
 /*
 |--------------------------------------------------------------------------
 | Websocket

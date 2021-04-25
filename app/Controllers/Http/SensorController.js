@@ -49,6 +49,20 @@ class SensorController {
         return response.json({message: "los sensores del usuario "+user.name+" fueron eliminados"})
 
     }
+
+    async regMonitor({response, auth, data}){
+      const user = await auth.getUser()
+      const sensore = await Sensor.findOne({name:"Distancia"},{user_id:this.auth.user.id});
+      const idsensor = sensore._id
+      const Obj = {
+        "sensor_id":idsensor,
+        "usuario_id":this.auth.user.id,
+        "Data":data
+      }
+      const dato = new Resultado(Obj);
+      dato.save();
+    }
+
 }
 
 module.exports = SensorController
