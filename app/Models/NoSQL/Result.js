@@ -31,7 +31,7 @@ const mongoose = use('Mongoose')
 const ObjectId = mongoose.Schema.Types.ObjectId
 const Mixed = mongoose.Schema.Types.Mixed
 const mongooseAutoPopulate = require('mongoose-autopopulate')
-
+const mongooseLeanGetters = require('mongoose-lean-getters');
 
 const Sensor = use('App/Models/NoSQL/Sensor');
 
