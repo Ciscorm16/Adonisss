@@ -10,7 +10,7 @@ class ResultController {
         const newResult = {sensor, data}
         const result = new Result(newResult)
         await result.save()
-        return response.status(201).json(result)
+        return response.json(result)
     }
 
     async showData({response, auth}) {
@@ -26,7 +26,7 @@ class ResultController {
             }
         ]);
 
-        return response.status(200).json(myDataSensors)
+        return response.json(myDataSensors)
     }
 
     async temperature(user_id, order) {
@@ -57,7 +57,7 @@ class ResultController {
               $match: { 'sensor.user_id': user.id, 'sensor.name':'Temperatura' }
           }
       ]).sort({data: -1}).limit(1);
-      return response.status(200).json(tempMax.data)
+      return response.json(tempMax.data)
   }
 
   async tempMin({response, auth}) {
@@ -73,7 +73,7 @@ class ResultController {
               $match: { 'sensor.user_id': user.id, 'sensor.name':'Temperatura' }
           }
       ]).sort({data: 1}).limit(1);
-      return response.status(200).json(tempMin.data)
+      return response.json(tempMin.data)
   }
 
   async humMax({response, auth}) {
@@ -89,7 +89,7 @@ class ResultController {
               $match: { 'sensor.user_id': user.id, 'sensor.name':'Humedad' }
           }
       ]).sort({data: -1}).limit(1);
-      return response.status(200).json(tempMax.data)
+      return response.json(tempMax.data)
   }
 
   async humMin({response, auth}) {
@@ -105,7 +105,7 @@ class ResultController {
               $match: { 'sensor.user_id': user.id, 'sensor.name':'Humedad' }
           }
       ]).sort({data: 1}).limit(1);
-      return response.status(200).json(tempMin.data)
+      return response.json(tempMin.data)
   }
 
     async presenceCounter({response, auth}) {
@@ -123,7 +123,7 @@ class ResultController {
                 $count: 'presencias'
             }
         ]);
-        return response.status(200).json(counter.data)
+        return response.json(counter.data)
     }
 
     async deleteByUser({response, auth}) {
