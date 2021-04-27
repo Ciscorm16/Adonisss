@@ -76,7 +76,7 @@ class ResultController {
       return response.status(200).json(tempMin)
   }
 
-  async HumMax({response, auth}) {
+  async humMax({response, auth}) {
       const user = await auth.getUser()
 
       // const tempMax = this.temperature(user.id, -1)
@@ -92,7 +92,7 @@ class ResultController {
       return response.status(200).json(tempMax)
   }
 
-  async HumMin({response, auth}) {
+  async humMin({response, auth}) {
       const user = await auth.getUser()
 
       // const tempMax = this.temperature(user.id, -1)
