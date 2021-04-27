@@ -57,7 +57,7 @@ class ResultController {
               $match: { 'sensor.user_id': user.id, 'sensor.name':'Temperatura' }
           }
       ]).sort({data: -1}).limit(1);
-      return response.json(tempMax.data)
+      return response.json(tempMax)
   }
 
   async tempMin({response, auth}) {
@@ -73,7 +73,7 @@ class ResultController {
               $match: { 'sensor.user_id': user.id, 'sensor.name':'Temperatura' }
           }
       ]).sort({data: 1}).limit(1);
-      return response.json(tempMin.data)
+      return response.json(tempMin)
   }
 
   async humMax({response, auth}) {
@@ -89,7 +89,7 @@ class ResultController {
               $match: { 'sensor.user_id': user.id, 'sensor.name':'Humedad' }
           }
       ]).sort({data: -1}).limit(1);
-      return response.json(tempMax.data)
+      return response.json(tempMax)
   }
 
   async humMin({response, auth}) {
@@ -105,7 +105,7 @@ class ResultController {
               $match: { 'sensor.user_id': user.id, 'sensor.name':'Humedad' }
           }
       ]).sort({data: 1}).limit(1);
-      return response.json(tempMin.data)
+      return response.json(tempMin)
   }
 
     async presenceCounter({response, auth}) {
@@ -123,7 +123,7 @@ class ResultController {
                 $count: 'presencias'
             }
         ]);
-        return response.json(counter.data)
+        return response.json(counter)
     }
 
     async deleteByUser({response, auth}) {
