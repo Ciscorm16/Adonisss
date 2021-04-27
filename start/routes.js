@@ -32,11 +32,13 @@ Route.group(() => {
  //SENSORS
  Route.group(() => {
   Route.post('/api/sensor/registro', 'SensorController.regMonitor')
+  Route.get('/api/obtenerID', 'SensorController.obtenerid')
 
   Route.post('/api/sensor', 'SensorController.store')
   Route.get('/api/sensor', 'SensorController.showMySensors')
-  Route.get('/api/obtenerID', 'SensorController.obtenerid')
+  Route.get('/api/sensor/:name', 'SensorController.showSensor')
   Route.delete('/api/sensor', 'SensorController.deleteByUser')
+
 }).middleware(['auth'])
 
 //RESULTS
@@ -45,6 +47,8 @@ Route.group(() => {
   Route.get('/api/result', 'ResultController.showData')
   Route.get('/api/result/tempMax', 'ResultController.tempMax')
   Route.get('/api/result/tempMin', 'ResultController.tempMin')
+  Route.get('/api/result/humMax', 'ResultController.humMax')
+  Route.get('/api/result/humMin', 'ResultController.humMin')
   Route.get('/api/result/presenceCounter', 'ResultController.presenceCounter')
   Route.delete('/api/result', 'ResultController.deleteByUser')
 }).middleware(['auth'])

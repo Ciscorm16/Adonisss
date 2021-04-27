@@ -50,6 +50,12 @@ class SensorController {
 
     }
 
+    async showSensor({ response, auth, params:{name}}) {
+      const user = await auth.getUser()
+      const sensor = await Sensor.findOne({user_id:user.id, name:name}).lean()
+      return response.status(200).json(sensor)
+    }
+
     async regMonitor({response, auth, data}){
       const user = await auth.getUser()
       const sensore = await Sensor.findOne({name:"Distancia"},{user_id:this.auth.user.id});

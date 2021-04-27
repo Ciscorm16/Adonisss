@@ -5,44 +5,39 @@ const User = use('App/Models/User')
 const Sensor = use('App/Models/NoSQL/Sensor')
 
 class UserController {
-    async store({request, response}) {
 
-        const userData = request.all()
-        const user = await User.create(userData)
-            // console.log(user);
-        const newSensor =
-            {'user_id':user.id, 'name' : 'Temperatura', 'description' : 'Sensor que captura la temperatura y el porcentaje de humedad conectado al pin 1.'}
-        const sensor = new Sensor(newSensor)
-        await sensor.save()
-        const newSensor2 =
-            {'user_id':user.id, 'name' : 'Movimiento', 'description' : 'Sensor PIR, captura si hay movimiento conectado al pin 2.'}
-        const sensor2 = new Sensor(newSensor2)
-        await sensor2.save()
-        const newSensor3 =
-            {'user_id':user.id, 'name' : 'Distancia', 'description' : 'Sensor Ultrasonico, indica la distancia conectado al pin 3 y 4.'}
-        const sensor3 = new Sensor(newSensor3)
-        await sensor3.save()
-        const newSensor4 =
-            {'user_id':user.id, 'name' : 'LED', 'description' : 'Led RGB para indicar si hay movimiento conectado al pin 5.'}
-        const sensor4 = new Sensor(newSensor4)
-        await sensor4.save()
-        const newSensor5 =
-            {'user_id':user.id, 'name' : 'Humumedad', 'description' : 'Sensor que captura la temperatura y el porcentaje de humedad conectado al pin 1.'}
-        const sensor5 = new Sensor(newSensor5)
-        await sensor5.save()
 
-        const sensors = [sensor,sensor2,sensor3,sensor4,sensor5]
-        // console.log(sensors);
-        return response.json({
-          status: "Se creo Correctamente"
-        });
-        /*
-        return response.created({
-            status: true,
-            data: user,
-        })
-        */
-    }
+  async store({request, response}) {
+
+    const userData = request.all()
+    const user = await User.create(userData)
+        // console.log(user);
+
+    const newSensor =
+        {'user_id':user.id, 'name' : 'Temperatura', 'description' : 'Sensor que captura la temperatura.'}
+    const sensor = new Sensor(newSensor)
+    await sensor.save()
+    const newSensor2 =
+        {'user_id':user.id, 'name' : 'Humedad', 'description' : 'Sensor que captura el porcentaje de humedad.'}
+    const sensor2 = new Sensor(newSensor2)
+    await sensor2.save()
+    const newSensor3 =
+        {'user_id':user.id, 'name' : 'Distancia', 'description' : 'Sensor Ultrasonico, indica la distancia.'}
+    const sensor3 = new Sensor(newSensor3)
+    await sensor3.save()
+    const newSensor4 =
+        {'user_id':user.id, 'name' : 'Movimiento', 'description' : 'Sensor PIR, captura si hay movimiento, acompañado de un LED.'}
+    const sensor4 = new Sensor(newSensor4)
+    await sensor4.save()
+
+    // const sensors = [sensor,sensor2,sensor3,sensor4]
+    // console.log(sensors);
+
+    return response.created({
+        status: true,
+        data: user,
+    })
+  }
 
     async show({response, auth}) {
         const session = await auth.getUser()
