@@ -9,7 +9,7 @@ module.exports = {
   db: Env.get('MONGO_DATABASE', '')
 }
 */
-/*
+
 const mongoose = require('mongoose')
 
 const uri = 'mongodb://127.0.0.1:27017/seguridapp'
@@ -20,8 +20,9 @@ mongoose.connect(uri,{ useMongoClient: true })
 mongoose.connection.on('open', _ => {
   console.log('conectado a MongoDB en:',uri)
 })
-*/
 
+
+/*
 const mongoose = require('mongoose');
 
 const uri = 'mongodb://localhost:27017/seguridapp'
@@ -29,3 +30,4 @@ const uri = 'mongodb://localhost:27017/seguridapp'
 // mongoose.openUri(uri)
 mongoose.connect(uri, {useNewUrlParser: true, useUnifiedTopology: true});
 // mongoose.Promise = global.Promise
+*/
