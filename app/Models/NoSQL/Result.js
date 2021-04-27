@@ -35,7 +35,7 @@ const mongooseAutoPopulate = require('mongoose-autopopulate')
 
 const Sensor = use('App/Models/NoSQL/Sensor');
 
-let ResultadoSchema = mongoose.Schema({
+let resultSchema = mongoose.Schema({
   sensor: { type: ObjectId, ref:'Sensor', autopopulate: true },
   user_id:{ type: Number, default: '' },
   data: { type: Mixed, default: '' },
@@ -45,4 +45,4 @@ let ResultadoSchema = mongoose.Schema({
 
 resultSchema.plugin(mongooseLeanGetters,mongooseAutoPopulate)
 
-module.exports = mongoose.model('Result', ResultadoSchema)
+module.exports = mongoose.model('Result', resultSchema)
