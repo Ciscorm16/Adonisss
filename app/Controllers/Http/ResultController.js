@@ -18,11 +18,11 @@ class ResultController {
 
         const myDataSensors = await Result.aggregate([
             {
-                $lookup :{ from: 'sensors', localField: 'sensor', foreignField: '_id', as: 'sensor'}
+                $lookup :{ from: 'Sensores', localField: 'Sensores', foreignField: '_id', as: 'Sensores'}
             }, {
-                $unwind: '$sensor'
+                $unwind: '$Sensores'
             }, {
-                $match: { 'sensor.user_id': user.id }
+                $match: { 'Sensores.user_id': user.id }
             }
         ]);
 
@@ -32,11 +32,11 @@ class ResultController {
     async temperature(user_id, order) {
         const temperature = await Result.aggregate([
             {
-                $lookup :{ from: 'sensors', localField: 'sensor', foreignField: '_id', as: 'sensor'}
+                $lookup :{ from: 'Sensores', localField: 'Sensores', foreignField: '_id', as: 'Sensores'}
             }, {
-                $unwind: '$sensor'
+                $unwind: '$Sensores'
             }, {
-                $match: { 'sensor.user_id': user_id, 'sensor.name':'Temp&Hum' }
+                $match: { 'Sensores.user_id': user_id, 'Sensores.name':'Temp&Hum' }
             }
         ]).sort({data: order}).limit(1);
         console.log(temperature);
@@ -50,11 +50,11 @@ class ResultController {
       // const tempMax = this.temperature(user.id, -1)
       const tempMax = await Result.aggregate([
           {
-              $lookup :{ from: 'sensors', localField: 'sensor', foreignField: '_id', as: 'sensor'}
+              $lookup :{ from: 'Sensores', localField: 'Sensores', foreignField: '_id', as: 'Sensores'}
           }, {
-              $unwind: '$sensor'
+              $unwind: '$Sensores'
           }, {
-              $match: { 'sensor.user_id': user.id, 'sensor.name':'Temperatura' }
+              $match: { 'Sensores.user_id': user.id, 'Sensores.name':'Temperatura' }
           }
       ]).sort({data: -1}).limit(1);
       return response.status(200).json(tempMax)
@@ -66,11 +66,11 @@ class ResultController {
       // const tempMax = this.temperature(user.id, -1)
       const tempMin = await Result.aggregate([
           {
-              $lookup :{ from: 'sensors', localField: 'sensor', foreignField: '_id', as: 'sensor'}
+              $lookup :{ from: 'Sensores', localField: 'Sensores', foreignField: '_id', as: 'Sensores'}
           }, {
-              $unwind: '$sensor'
+              $unwind: '$Sensores'
           }, {
-              $match: { 'sensor.user_id': user.id, 'sensor.name':'Temperatura' }
+              $match: { 'Sensores.user_id': user.id, 'Sensores.name':'Temperatura' }
           }
       ]).sort({data: 1}).limit(1);
       return response.status(200).json(tempMin)
@@ -82,11 +82,11 @@ class ResultController {
       // const tempMax = this.temperature(user.id, -1)
       const tempMax = await Result.aggregate([
           {
-              $lookup :{ from: 'sensors', localField: 'sensor', foreignField: '_id', as: 'sensor'}
+              $lookup :{ from: 'Sensores', localField: 'Sensores', foreignField: '_id', as: 'Sensores'}
           }, {
-              $unwind: '$sensor'
+              $unwind: '$Sensores'
           }, {
-              $match: { 'sensor.user_id': user.id, 'sensor.name':'Humedad' }
+              $match: { 'Sensores.user_id': user.id, 'Sensores.name':'Humedad' }
           }
       ]).sort({data: -1}).limit(1);
       return response.status(200).json(tempMax)
@@ -98,11 +98,11 @@ class ResultController {
       // const tempMax = this.temperature(user.id, -1)
       const tempMin = await Result.aggregate([
           {
-              $lookup :{ from: 'sensors', localField: 'sensor', foreignField: '_id', as: 'sensor'}
+              $lookup :{ from: 'Sensores', localField: 'Sensores', foreignField: '_id', as: 'Sensores'}
           }, {
-              $unwind: '$sensor'
+              $unwind: '$Sensores'
           }, {
-              $match: { 'sensor.user_id': user.id, 'sensor.name':'Humedad' }
+              $match: { 'Sensores.user_id': user.id, 'Sensores.name':'Humedad' }
           }
       ]).sort({data: 1}).limit(1);
       return response.status(200).json(tempMin)
@@ -114,11 +114,11 @@ class ResultController {
         // const tempMax = this.temperature(user.id, -1)
         const counter = await Result.aggregate([
             {
-                $lookup :{ from:'sensors', localField:'sensor', foreignField:'_id', as:'sensor'}
+                $lookup :{ from:'Sensores', localField:'Sensores', foreignField:'_id', as:'Sensores'}
             }, {
-                $unwind: '$sensor'
+                $unwind: '$Sensores'
             }, {
-                $match: { 'sensor.user_id':user.id, 'sensor.name':'Movimiento', 'data':true }
+                $match: { 'Sensores.user_id':user.id, 'Sensores.name':'Movimiento', 'data':true }
             }, {
                 $count: 'presencias'
             }
