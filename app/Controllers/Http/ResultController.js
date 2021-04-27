@@ -10,7 +10,7 @@ class ResultController {
         const newResult = {sensor, data}
         const result = new Result(newResult)
         await result.save()
-        return response.json(result)
+        return response.status(201).json(result)
     }
 
     async showData({response, auth}) {
@@ -20,13 +20,13 @@ class ResultController {
             {
                 $lookup :{ from: 'sensors', localField: 'sensor', foreignField: '_id', as: 'sensor'}
             }, {
-                $unwind: '$sensor'
+                $unwind: '$sensors'
             }, {
-                $match: { 'sensor.user_id': user.id }
+                $match: { 'sensors.user_id': user.id }
             }
         ]);
 
-        return response.json(myDataSensors)
+        return response.status(200).json(myDataSensors)
     }
 
     async temperature(user_id, order) {
@@ -57,7 +57,7 @@ class ResultController {
               $match: { 'sensor.user_id': user.id, 'sensor.name':'Temperatura' }
           }
       ]).sort({data: -1}).limit(1);
-      return response.json(tempMax)
+      return response.status(200).json(tempMax)
   }
 
   async tempMin({response, auth}) {
@@ -73,7 +73,7 @@ class ResultController {
               $match: { 'sensor.user_id': user.id, 'sensor.name':'Temperatura' }
           }
       ]).sort({data: 1}).limit(1);
-      return response.json(tempMin)
+      return response.status(200).json(tempMin)
   }
 
   async humMax({response, auth}) {
@@ -89,7 +89,7 @@ class ResultController {
               $match: { 'sensor.user_id': user.id, 'sensor.name':'Humedad' }
           }
       ]).sort({data: -1}).limit(1);
-      return response.json(tempMax)
+      return response.status(200).json(tempMax)
   }
 
   async humMin({response, auth}) {
@@ -105,7 +105,7 @@ class ResultController {
               $match: { 'sensor.user_id': user.id, 'sensor.name':'Humedad' }
           }
       ]).sort({data: 1}).limit(1);
-      return response.json(tempMin)
+      return response.status(200).json(tempMin)
   }
 
     async presenceCounter({response, auth}) {
@@ -123,7 +123,7 @@ class ResultController {
                 $count: 'presencias'
             }
         ]);
-        return response.json(counter)
+        return response.status(200).json(counter)
     }
 
     async deleteByUser({response, auth}) {
