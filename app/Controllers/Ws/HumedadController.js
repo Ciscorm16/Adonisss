@@ -15,7 +15,7 @@ class HumedadController {
     console.log(this.socket.id);
     console.log(data);
     const user = await this.auth.getUser();
-    const sensore = await Sensor.findOne({name:"Humumedad"},{user_id:this.auth.user.id});
+    const sensore = await Sensor.findOne({name:"Humedad"},{user_id:this.auth.user.id});
     const idsensor = sensore._id
     const Obj = {
       "sensor_id":idsensor,

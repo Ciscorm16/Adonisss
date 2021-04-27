@@ -71,7 +71,7 @@ class SensorController {
 
     async obtenerid({ response, auth }){
         const user = await auth.getUser()
-        const humedad = await Sensor.findOne({name:"Humumedad"},{user_id:auth.user.id})
+        const humedad = await Sensor.findOne({name:"Humedad"},{user_id:auth.user.id})
         const movimiento = await Sensor.findOne({name:"Movimiento"},{user_id:auth.user.id})
         const temperatura = await Sensor.findOne({name:"Temperatura"},{user_id:auth.user.id})
         const distancia = await Sensor.findOne({name:"Distancia"},{user_id:auth.user.id})
