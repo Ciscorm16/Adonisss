@@ -36,13 +36,13 @@ const Mixed = mongoose.Schema.Types.Mixed
 const Sensor = use('App/Models/NoSQL/Sensor');
 
 let ResultadoSchema = mongoose.Schema({
-  sensor_id: {type: Mixed, default: '' },
-  usuario_id:{ type: Number, default: '' },
-  Data: { type: Mixed, default: '' },
+  sensor: {type: Mixed, default: '' },
+  user_id:{ type: Number, default: '' },
+  data: { type: Mixed, default: '' },
 }, {
   timestamps: true
 })
 
 
 
-module.exports = mongoose.model('Resultado', ResultadoSchema)
+module.exports = mongoose.model('Result', ResultadoSchema)

@@ -18,9 +18,9 @@ class PirController {
     const sensore = await Sensor.findOne({name:"Movimiento"},{user_id:this.auth.user.id});
     const idsensor = sensore._id
     const Obj = {
-      "sensor_id":idsensor,
-      "usuario_id":this.auth.user.id,
-      "Data":data
+      "sensor":idsensor,
+      "user_id":this.auth.user.id,
+      "data":data
     }
     const dato = new Resultado(Obj);
     dato.save();

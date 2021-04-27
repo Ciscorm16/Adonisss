@@ -41,4 +41,4 @@ let sensorSchema = mongoose.Schema({
   timestamps: true
 })
 
-module.exports = mongoose.model('Sensores', sensorSchema)
+module.exports = mongoose.model('sensors', sensorSchema)
