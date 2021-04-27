@@ -116,7 +116,7 @@ class ResultController {
             {
                 $lookup :{ from:'sensors', localField:'sensor', foreignField:'_id', as:'sensor'}
             }, {
-                $unwind: '$sensor'
+                $unwind: '$sensor' 
             }, {
                 $match: { 'sensor.user_id':user.id, 'sensor.name':'Movimiento', 'data':true }
             }, {
@@ -124,8 +124,8 @@ class ResultController {
             }
         ]);
         const counterString = counter[0]["presencias"].toString()
-        // console.log(counterString);
-        return response.status(200).json({data:counterString})
+        console.log(counterString);
+        return response.status(200).json({data:counterString, message:"contador de presencias"})
     }
 
     async deleteByUser({response, auth}) {
