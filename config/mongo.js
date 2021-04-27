@@ -1,4 +1,4 @@
-/*
+
 const Env = use('Env')
 
 module.exports = {
@@ -8,8 +8,8 @@ module.exports = {
   pass: Env.get('MONGO_PASS', ''),
   db: Env.get('MONGO_DATABASE', '')
 }
-*/
 
+/*
 const mongoose = require('mongoose')
 
 const uri = 'mongodb://127.0.0.1:27017/seguridapp'
@@ -20,7 +20,7 @@ mongoose.connect(uri,{ useMongoClient: true })
 mongoose.connection.on('open', _ => {
   console.log('conectado a MongoDB en:',uri)
 })
-
+*/
 
 /*
 const mongoose = require('mongoose');
