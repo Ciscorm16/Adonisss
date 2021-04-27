@@ -123,7 +123,9 @@ class ResultController {
                 $count: 'presencias'
             }
         ]);
-        return response.status(200).json(counter[0])
+        const counterString = counter[0]["presencias"].toString()
+        // console.log(counterString);
+        return response.status(200).json({data:counterString})
     }
 
     async deleteByUser({response, auth}) {
