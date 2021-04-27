@@ -32,11 +32,11 @@ class ResultController {
     async temperature(user_id, order) {
         const temperature = await Result.aggregate([
             {
-                $lookup :{ from: 'Sensores', localField: 'Sensores', foreignField: '_id', as: 'Sensores'}
+                $lookup :{ from: 'sensores', localField: 'sensores', foreignField: '_id', as: 'sensores'}
             }, {
-                $unwind: '$Sensores'
+                $unwind: '$sensores'
             }, {
-                $match: { 'Sensores.user_id': user_id, 'Sensores.name':'Temp&Hum' }
+                $match: { 'sensores.user_id': user_id, 'sensores.name':'Temp&Hum' }
             }
         ]).sort({data: order}).limit(1);
         console.log(temperature);
@@ -50,11 +50,11 @@ class ResultController {
       // const tempMax = this.temperature(user.id, -1)
       const tempMax = await Result.aggregate([
           {
-              $lookup :{ from: 'Sensores', localField: 'Sensores', foreignField: '_id', as: 'Sensores'}
+              $lookup :{ from: 'sensores', localField: 'sensores', foreignField: '_id', as: 'sensores'}
           }, {
-              $unwind: '$Sensores'
+              $unwind: '$sensores'
           }, {
-              $match: { 'Sensores.user_id': user.id, 'Sensores.name':'Temperatura' }
+              $match: { 'sensores.user_id': user.id, 'sensores.name':'Temperatura' }
           }
       ]).sort({data: -1}).limit(1);
       return response.status(200).json(tempMax)
@@ -66,11 +66,11 @@ class ResultController {
       // const tempMax = this.temperature(user.id, -1)
       const tempMin = await Result.aggregate([
           {
-              $lookup :{ from: 'Sensores', localField: 'Sensores', foreignField: '_id', as: 'Sensores'}
+              $lookup :{ from: 'sensores', localField: 'sensores', foreignField: '_id', as: 'sensores'}
           }, {
-              $unwind: '$Sensores'
+              $unwind: '$sensores'
           }, {
-              $match: { 'Sensores.user_id': user.id, 'Sensores.name':'Temperatura' }
+              $match: { 'sensores.user_id': user.id, 'sensores.name':'Temperatura' }
           }
       ]).sort({data: 1}).limit(1);
       return response.status(200).json(tempMin)
@@ -82,11 +82,11 @@ class ResultController {
       // const tempMax = this.temperature(user.id, -1)
       const tempMax = await Result.aggregate([
           {
-              $lookup :{ from: 'Sensores', localField: 'Sensores', foreignField: '_id', as: 'Sensores'}
+              $lookup :{ from: 'sensores', localField: 'sensores', foreignField: '_id', as: 'sensores'}
           }, {
-              $unwind: '$Sensores'
+              $unwind: '$sensores'
           }, {
-              $match: { 'Sensores.user_id': user.id, 'Sensores.name':'Humedad' }
+              $match: { 'sensores.user_id': user.id, 'sensores.name':'Humedad' }
           }
       ]).sort({data: -1}).limit(1);
       return response.status(200).json(tempMax)
@@ -98,11 +98,11 @@ class ResultController {
       // const tempMax = this.temperature(user.id, -1)
       const tempMin = await Result.aggregate([
           {
-              $lookup :{ from: 'Sensores', localField: 'Sensores', foreignField: '_id', as: 'Sensores'}
+              $lookup :{ from: 'sensores', localField: 'sensores', foreignField: '_id', as: 'sensores'}
           }, {
-              $unwind: '$Sensores'
+              $unwind: '$sensores'
           }, {
-              $match: { 'Sensores.user_id': user.id, 'Sensores.name':'Humedad' }
+              $match: { 'sensores.user_id': user.id, 'sensores.name':'Humedad' }
           }
       ]).sort({data: 1}).limit(1);
       return response.status(200).json(tempMin)
@@ -114,11 +114,11 @@ class ResultController {
         // const tempMax = this.temperature(user.id, -1)
         const counter = await Result.aggregate([
             {
-                $lookup :{ from:'Sensores', localField:'Sensores', foreignField:'_id', as:'Sensores'}
+                $lookup :{ from:'sensores', localField:'sensores', foreignField:'_id', as:'sensores'}
             }, {
-                $unwind: '$Sensores'
+                $unwind: '$sensores'
             }, {
-                $match: { 'Sensores.user_id':user.id, 'Sensores.name':'Movimiento', 'data':true }
+                $match: { 'sensores.user_id':user.id, 'sensores.name':'Movimiento', 'data':true }
             }, {
                 $count: 'presencias'
             }
@@ -128,7 +128,7 @@ class ResultController {
 
     async deleteByUser({response, auth}) {
       const user = await auth.getUser()
-      const sensor1 = await Sensor.findOne({user_id:user.id, name:'Temp&Hum'})
+      const sensor1 = await Sensor.findOne({user_id:user.id, name:'Temperatura'})
       console.log(sensor1._id);
       await Result.deleteMany({sensor:sensor1._id})
       const sensor2 = await Sensor.findOne({user_id:user.id, name:'Movimiento'})
@@ -137,7 +137,7 @@ class ResultController {
       const sensor3 = await Sensor.findOne({user_id:user.id, name:'Distancia'})
       console.log(sensor3._id);
       await Result.deleteMany({sensor:sensor3._id})
-      const sensor4 = await Sensor.findOne({user_id:user.id, name:'LED'})
+      const sensor4 = await Sensor.findOne({user_id:user.id, name:'Humedad'})
       console.log(sensor4._id);
       await Result.deleteMany({sensor:sensor4._id})
       return response.status(200).json({message:'Hisrotial Vaciado'})
