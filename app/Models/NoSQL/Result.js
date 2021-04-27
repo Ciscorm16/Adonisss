@@ -30,19 +30,19 @@ module.exports = mongoose.model('Result', resultSchema)
 const mongoose = use('Mongoose')
 const ObjectId = mongoose.Schema.Types.ObjectId
 const Mixed = mongoose.Schema.Types.Mixed
-
+const mongooseAutoPopulate = require('mongoose-autopopulate')
 
 
 const Sensor = use('App/Models/NoSQL/Sensor');
 
 let ResultadoSchema = mongoose.Schema({
-  sensor: {type: Mixed, default: '' },
+  sensor: { type: ObjectId, ref:'Sensor', autopopulate: true },
   user_id:{ type: Number, default: '' },
   data: { type: Mixed, default: '' },
 }, {
   timestamps: true
 })
 
-
+resultSchema.plugin(mongooseLeanGetters,mongooseAutoPopulate)
 
 module.exports = mongoose.model('Result', ResultadoSchema)
