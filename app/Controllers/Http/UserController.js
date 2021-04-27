@@ -4,15 +4,13 @@ const { validate } = use('Validator')
 const User = use('App/Models/User')
 const Sensor = use('App/Models/NoSQL/Sensor')
 
-
 class UserController {
     async store({request, response}) {
 
         const userData = request.all()
         const user = await User.create(userData)
             // console.log(user);
-
-            const newSensor =
+        const newSensor =
             {'user_id':user.id, 'name' : 'Temperatura', 'description' : 'Sensor que captura la temperatura y el porcentaje de humedad conectado al pin 1.'}
         const sensor = new Sensor(newSensor)
         await sensor.save()
@@ -33,7 +31,7 @@ class UserController {
         const sensor5 = new Sensor(newSensor5)
         await sensor5.save()
 
-        const sensors = [sensor,sensor2,sensor3,sensor4,newSensor5]
+        const sensors = [sensor,sensor2,sensor3,sensor4,sensor5]
         // console.log(sensors);
         return response.json({
           status: "Se creo Correctamente"

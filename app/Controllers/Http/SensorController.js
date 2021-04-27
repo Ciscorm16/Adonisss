@@ -63,6 +63,34 @@ class SensorController {
       dato.save();
     }
 
+    async obtenerid({ response, auth }){
+        const user = await auth.getUser()
+        const humedad = await Sensor.findOne({name:"Humumedad"},{user_id:auth.user.id})
+        const movimiento = await Sensor.findOne({name:"Movimiento"},{user_id:auth.user.id})
+        const temperatura = await Sensor.findOne({name:"Temperatura"},{user_id:auth.user.id})
+        const distancia = await Sensor.findOne({name:"Distancia"},{user_id:auth.user.id})
+        const idhumedad = humedad._id
+        const nombrehumedad = "Humumedad"
+        const idmovimiento = movimiento._id
+        const nombremovimiento ="Movimiento"
+        const idtemperatura = temperatura._id
+        const nombretemperatura = "Temperatura"
+        const iddistancia = distancia._id
+        const nombredistancia = "Distancia"
+
+        return response.json({
+          "user_id":auth.user.id,
+          "sensor_id_Humumedad":idhumedad,
+          "Humumedad":nombrehumedad,
+          "sensor_id_Movimiento":idmovimiento,
+          "Movimiento":nombremovimiento,
+          "sensor_id_Temperatura":idtemperatura,
+          "Temperatura":nombretemperatura,
+          "sensor_id_Distancia":iddistancia,
+          "Distancia":nombredistancia
+        });
+    }
+
 }
 
 module.exports = SensorController

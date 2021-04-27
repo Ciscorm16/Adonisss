@@ -11,7 +11,6 @@ class HumedadController {
   }
 
   async onMessage(data){
-    var datito;
     this.socket.broadcast("message",data);
     console.log(this.socket.id);
     console.log(data);
@@ -23,11 +22,8 @@ class HumedadController {
       "usuario_id":this.auth.user.id,
       "Data":data
     }
-    if(data != datito){
     const dato = new Resultado(Obj);
     dato.save();
-    datito  = data;
-    }
   }
 
   onClose () {
