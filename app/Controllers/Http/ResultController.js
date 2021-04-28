@@ -29,21 +29,6 @@ class ResultController {
         return response.status(200).json(myDataSensors)
     }
 
-    async temperature(user_id, order) {
-        const temperature = await Result.aggregate([
-            {
-                $lookup :{ from: 'sensors', localField: 'sensor', foreignField: '_id', as: 'sensor'}
-            }, {
-                $unwind: '$sensor'
-            }, {
-                $match: { 'sensor.user_id': user_id, 'sensor.name':'Temp&Hum' }
-            }
-        ]).sort({data: order}).limit(1);
-        console.log(temperature);
-
-        return (temperature)
-    }
-
     async tempMax({response, auth}) {
       const user = await auth.getUser()
 
@@ -54,7 +39,7 @@ class ResultController {
           }, {
               $unwind: '$sensor'
           }, {
-              $match: { 'sensor.user_id': user.id, 'sensor.name':'Temperatura' }
+              $match: { 'sensor.name':'Temperatura' }
           }
       ]).sort({data: -1}).limit(1);
       return response.status(200).json(tempMax[0])
@@ -70,7 +55,7 @@ class ResultController {
           }, {
               $unwind: '$sensor'
           }, {
-              $match: { 'sensor.user_id': user.id, 'sensor.name':'Temperatura' }
+              $match: { 'sensor.name':'Temperatura' }
           }
       ]).sort({data: 1}).limit(1);
       return response.status(200).json(tempMin[0])
@@ -86,7 +71,7 @@ class ResultController {
           }, {
               $unwind: '$sensor'
           }, {
-              $match: { 'sensor.user_id': user.id, 'sensor.name':'Humedad' }
+              $match: { 'sensor.name':'Humedad' }
           }
       ]).sort({data: -1}).limit(1);
       return response.status(200).json(tempMax[0])
@@ -102,7 +87,7 @@ class ResultController {
           }, {
               $unwind: '$sensor'
           }, {
-              $match: { 'sensor.user_id': user.id, 'sensor.name':'Humedad' }
+              $match: { 'sensor.name':'Humedad' }
           }
       ]).sort({data: 1}).limit(1);
       return response.status(200).json(tempMin[0])
@@ -118,7 +103,7 @@ class ResultController {
             }, {
                 $unwind: '$sensor' 
             }, {
-                $match: { 'sensor.user_id':user.id, 'sensor.name':'Movimiento', 'data':true }
+                $match: { 'sensor.name':'Movimiento', 'data':true }
             }, {
                 $count: 'presencias'
             }
